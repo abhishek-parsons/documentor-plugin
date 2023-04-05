@@ -32,7 +32,7 @@ function App() {
   return (
     <div>
       <img src={logo} />
-      <h2>Rectangle Creator</h2>
+      <h2>Rectangle Creatorrr</h2>
       <p>
         Count: <input ref={countRef} />
       </p>
