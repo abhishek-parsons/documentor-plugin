@@ -1,5 +1,14 @@
 figma.showUI(__html__);
 
+console.log(figma.currentPage.selection);
+
+figma.on('selectionchange', () => {
+  figma.ui.postMessage({
+    type: 'update-selection',
+    message: figma.currentPage.selection.length > 0 ? figma.currentPage.selection[0].type : 'nothing selected',
+  });
+});
+
 figma.ui.onmessage = (msg) => {
   if (msg.type === 'create-rectangles') {
     const nodes = [];

@@ -1,23 +1,25 @@
-import React from 'react';
-import logo from '../assets/logo.svg';
+import React, { useState } from 'react';
+// import logo from '../assets/logo.svg';
 import '../styles/ui.css';
 
 function App() {
-  const textbox = React.useRef<HTMLInputElement>(undefined);
+  // const textbox = React.useRef<HTMLInputElement>(undefined);
 
-  const countRef = React.useCallback((element: HTMLInputElement) => {
-    if (element) element.value = '5';
-    textbox.current = element;
-  }, []);
+  // const countRef = React.useCallback((element: HTMLInputElement) => {
+  //   if (element) element.value = '5';
+  //   textbox.current = element;
+  // }, []);
 
-  const onCreate = () => {
-    const count = parseInt(textbox.current.value, 10);
-    parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*');
-  };
+  // const onCreate = () => {
+  //   const count = parseInt(textbox.current.value, 10);
+  //   parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*');
+  // };
 
-  const onCancel = () => {
-    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
-  };
+  // const onCancel = () => {
+  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+  // };
+
+  let [nodeType, setNodeType] = useState(null);
 
   React.useEffect(() => {
     // This is how we read messages sent from the plugin controller
@@ -26,20 +28,18 @@ function App() {
       if (type === 'create-rectangles') {
         console.log(`Figma Says: ${message}`);
       }
+      if (type === 'update-selection') {
+        setNodeType(message);
+        console.log(message);
+      }
     };
   }, []);
 
+  console.log(this);
+
   return (
     <div>
-      <img src={logo} />
-      <h2>Rectangle Creatorrr</h2>
-      <p>
-        Count: <input ref={countRef} />
-      </p>
-      <button id="create" onClick={onCreate}>
-        Create
-      </button>
-      <button onClick={onCancel}>Cancel</button>
+      <p>{nodeType}</p>
     </div>
   );
 }
